@@ -1,24 +1,16 @@
 package application
 
 import (
-	"encoding/json"
-	"os"
+	"testClean/infrastructure"
 )
 import "testClean/domain"
 
 // 1) Просмотреть товары -> Вернуть все товары из базы
 func GetAllGoods() ([]domain.Good, error) {
-	fileCont, err := os.ReadFile("storage/goods.json")
+	goods, err := infrastructure.GetAllGoodsFromStorage()
 	if err != nil {
 		return nil, err
 	}
-
-	var goods []domain.Good
-	err = json.Unmarshal(fileCont, &goods)
-	if err != nil {
-		return nil, err
-	}
-
 	return goods, nil
 }
 

@@ -8,12 +8,15 @@ type Order struct {
 	Done bool
 }
 
-func (o Order) AddGood(good Good) {
+func (o *Order) AddGood(good Good) {
 	if o.Done {
 		// TODO: Вернуть ошибку
 		return
 	}
 
+	if o.Positions == nil {
+		o.Positions = []Position{}
+	}
 	for _, position := range o.Positions {
 		if position.Good.Name == good.Name {
 			position.Amount += 1
